@@ -51,32 +51,7 @@ class _FirstPageState extends State<FirstPage> {
                             itemCount: snapshot.data!.length,
                             itemBuilder: (context, index) {
                               if (snapshot.data?[index] != null) {
-                                return ListTile(
-                                  key: ValueKey(snapshot.data![index].id),
-                                  title: Text(snapshot.data![index].text),
-                                  trailing: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      IconButton(
-                                        onPressed: () {
-                                          remove(index);
-                                        },
-                                        icon: const Icon(
-                                          Icons.delete,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                      IconButton(
-                                        onPressed: () =>
-                                            edit(snapshot.data![index].id),
-                                        icon: const Icon(
-                                          Icons.edit,
-                                          color: Colors.black,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                );
+                                return buildPlate(snapshot, index);
                               } else {
                                 return const CircularProgressIndicator();
                               }
@@ -86,6 +61,34 @@ class _FirstPageState extends State<FirstPage> {
                   },
                 )
               : const Text("I am empty")),
+    );
+  }
+
+  ListTile buildPlate(AsyncSnapshot<List<FirstListModel>> snapshot, int index) {
+    return ListTile(
+      key: ValueKey(snapshot.data![index].id),
+      title: Text(snapshot.data![index].text),
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          IconButton(
+            onPressed: () {
+              remove(index);
+            },
+            icon: const Icon(
+              Icons.delete,
+              color: Colors.black,
+            ),
+          ),
+          IconButton(
+            onPressed: () => edit(snapshot.data![index].id),
+            icon: const Icon(
+              Icons.edit,
+              color: Colors.black,
+            ),
+          )
+        ],
+      ),
     );
   }
 
