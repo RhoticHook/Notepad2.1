@@ -9,19 +9,15 @@ class CreatorInitial extends CreatorState {
   const CreatorInitial();
 }
 
+class CreatorLoading extends CreatorState {
+  const CreatorLoading();
+}
+
+// ignore: must_be_immutable
 class CreatorLoaded extends CreatorState {
-  final FirstListModel firstList;
-  const CreatorLoaded(this.firstList);
+  List<FirstListModel>? firstList;
 
-  @override
-  bool operator ==(Object o) {
-    if (identical(this, o)) return true;
-
-    return o is CreatorLoaded && o.firstList == firstList;
-  }
-
-  @override
-  int get hashCode => firstList.hashCode;
+  CreatorLoaded(this.firstList);
 }
 
 class CreatorError extends CreatorState {

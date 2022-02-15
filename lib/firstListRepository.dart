@@ -1,8 +1,8 @@
 import 'package:delete_mee/blocCubit/cubit/creator_cubit.dart';
 import 'package:delete_mee/model/FirstListModel.dart';
+import 'dart:io';
 
 abstract class FirstListRepository {
-  List<FirstListModel> firstList = [];
   Future<bool> addElement(FirstListModel? e);
   Future<bool> addAllList(List<FirstListModel>? list);
   Future<void> deleteElement(String id);
@@ -11,9 +11,12 @@ abstract class FirstListRepository {
   Future<FirstListModel> getElement(String? id);
   Future<FirstListModel> removeAtId(String id);
   Future<bool> noEmpty();
+  Future<void> deleteLastElement();
 }
 
 class MockFirstListRepository with FirstListRepository {
+  List<FirstListModel> firstList = [];
+
   @override
   Future<bool> addAllList(List<FirstListModel>? list) async {
     if (list?.isNotEmpty == true) {
@@ -25,6 +28,7 @@ class MockFirstListRepository with FirstListRepository {
 
   @override
   Future<bool> addElement(FirstListModel? e) async {
+    await Future.delayed(Duration(seconds: 3));
     if (e != null) {
       firstList.add(e);
       return true;
@@ -52,6 +56,11 @@ class MockFirstListRepository with FirstListRepository {
   Future<void> deleteElement(String id) async {
     firstList.removeWhere((element) => element.id == id);
     return;
+  }
+
+  @override
+  Future<void> deleteLastElement() async {
+    firstList.removeLast();
   }
 
   @override
