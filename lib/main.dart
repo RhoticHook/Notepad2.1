@@ -16,13 +16,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  late FirstListRepository repo;
-  @override
-  void initState() {
-    repo = MockFirstListRepository();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

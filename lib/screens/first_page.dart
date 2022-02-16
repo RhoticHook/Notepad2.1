@@ -16,7 +16,7 @@ class FirstPage extends StatefulWidget {
 
 class _FirstPageState extends State<FirstPage> {
   MockFirstListRepository fakeFirebase = MockFirstListRepository();
-  int lol = 0;
+  int iterableNameForWidgets = 0;
   var uuid = const Uuid();
 
   @override
@@ -42,9 +42,10 @@ class _FirstPageState extends State<FirstPage> {
           },
           builder: (context, state) {
             if (state is CreatorInitial) {
-              return emptyCase();
+              return _emptyCase();
             } else if (state is CreatorLoaded) {
-              fakeFirebase.firstList = state.firstList!;
+              fakeFirebase.firstList = state
+                  .firstList!; //this is veary bad, it should be only one list from fake repository!!!
               if (state.firstList?.isNotEmpty == true) {
                 return ReorderableListView.builder(
                   onReorder: (oldIndex, newIndex) async {
@@ -56,11 +57,11 @@ class _FirstPageState extends State<FirstPage> {
                   },
                   itemCount: state.firstList!.length,
                   itemBuilder: (context, index) {
-                    return buildPlate(state.firstList!, index);
+                    return _buildPlate(state.firstList!, index);
                   },
                 );
               } else {
-                return emptyCase();
+                return _emptyCase();
               }
             } else {
               return const CircularProgressIndicator(
@@ -73,11 +74,11 @@ class _FirstPageState extends State<FirstPage> {
     );
   }
 
-  Widget emptyCase() {
+  Widget _emptyCase() {
     return Center(child: Lottie.asset('assets/lottie/emptyApp.json'));
   }
 
-  ListTile buildPlate(List<FirstListModel> snapshot, int index) {
+  ListTile _buildPlate(List<FirstListModel> snapshot, int index) {
     return ListTile(
       key: ValueKey(snapshot[index].id),
       title: Text(snapshot[index].text),
@@ -86,7 +87,7 @@ class _FirstPageState extends State<FirstPage> {
         children: [
           IconButton(
             onPressed: () {
-              remove(index);
+              _remove(index);
             },
             icon: const Icon(
               Icons.delete,
@@ -94,7 +95,7 @@ class _FirstPageState extends State<FirstPage> {
             ),
           ),
           IconButton(
-            onPressed: () => edit(snapshot[index].id),
+            onPressed: () => _edit(snapshot[index].id),
             icon: const Icon(
               Icons.edit,
               color: Colors.black,
@@ -105,7 +106,7 @@ class _FirstPageState extends State<FirstPage> {
     );
   }
 
-  void edit(String id) => showDialog(
+  void _edit(String id) => showDialog(
         context: context,
         builder: (context) {
           return FutureBuilder(
@@ -127,7 +128,7 @@ class _FirstPageState extends State<FirstPage> {
         },
       );
 
-  void remove(int index) {
+  void _remove(int index) {
     var e = fakeFirebase.firstList[index];
     setState(() {
       fakeFirebase.deleteElement(e.id);
@@ -137,8 +138,9 @@ class _FirstPageState extends State<FirstPage> {
   void _addWidget(CreatorCubit creatorCubit) {
     setState(() {});
     var vId = uuid.v1();
-    final item = FirstListModel(text: lol.toString(), id: vId);
-    lol++;
+    final item =
+        FirstListModel(text: iterableNameForWidgets.toString(), id: vId);
+    iterableNameForWidgets++;
     creatorCubit.getList(item);
   }
 }
