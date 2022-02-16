@@ -1,8 +1,7 @@
 import 'package:bloc/bloc.dart';
-import 'package:delete_mee/firstListRepository.dart';
-import 'package:delete_mee/model/FirstListModel.dart';
+import 'package:delete_mee/first_list_repository.dart';
+import 'package:delete_mee/model/first_list_mode.dart';
 import 'package:meta/meta.dart';
-import 'package:flutter/services.dart';
 
 part 'creator_state.dart';
 

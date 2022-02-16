@@ -2,7 +2,7 @@ import 'package:delete_mee/blocCubit/cubit/creator_cubit.dart';
 import 'package:delete_mee/screens/first_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'firstListRepository.dart';
+import 'first_list_repository.dart';
 
 void main() {
   runApp(const MyApp());
