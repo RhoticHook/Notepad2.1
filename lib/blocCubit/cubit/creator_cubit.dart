@@ -17,7 +17,7 @@ class CreatorCubit extends Cubit<CreatorState> {
       var list = await _fakeRepository.getList();
       emit(CreatorLoaded(list));
     } on Exception catch (_) {
-      emit(const CreatorError("error 404!, page not found, lol"));
+      emit(const CreatorError("error 404!, page not found"));
     }
   }
 }

@@ -1,4 +1,3 @@
-//https://pastebin.com/3rYKTRVH
 import 'package:delete_mee/blocCubit/cubit/creator_cubit.dart';
 import 'package:delete_mee/first_list_repository.dart';
 import 'package:delete_mee/model/first_list_model.dart';
