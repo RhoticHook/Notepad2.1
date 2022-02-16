@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:delete_mee/first_list_repository.dart';
-import 'package:delete_mee/model/first_list_mode.dart';
+import 'package:delete_mee/model/first_list_model.dart';
 import 'package:meta/meta.dart';
 
 part 'creator_state.dart';

@@ -1,7 +1,7 @@
 //https://pastebin.com/3rYKTRVH
 import 'package:delete_mee/blocCubit/cubit/creator_cubit.dart';
 import 'package:delete_mee/first_list_repository.dart';
-import 'package:delete_mee/model/first_list_mode.dart';
+import 'package:delete_mee/model/first_list_model.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 import 'package:lottie/lottie.dart';

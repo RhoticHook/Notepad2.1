@@ -1,4 +1,4 @@
-import 'package:delete_mee/model/first_list_mode.dart';
+import 'package:delete_mee/model/first_list_model.dart';
 
 abstract class FirstListRepository {
   Future<bool> addElement(FirstListModel? e);
