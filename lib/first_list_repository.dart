@@ -1,6 +1,4 @@
-import 'package:delete_mee/blocCubit/cubit/creator_cubit.dart';
-import 'package:delete_mee/model/FirstListModel.dart';
-import 'dart:io';
+import 'package:delete_mee/model/first_list_mode.dart';
 
 abstract class FirstListRepository {
   Future<bool> addElement(FirstListModel? e);
@@ -28,7 +26,7 @@ class MockFirstListRepository with FirstListRepository {
 
   @override
   Future<bool> addElement(FirstListModel? e) async {
-    await Future.delayed(Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 3));
     if (e != null) {
       firstList.add(e);
       return true;

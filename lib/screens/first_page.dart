@@ -1,26 +1,22 @@
 //https://pastebin.com/3rYKTRVH
-import 'package:delete_mee/bloc/list_xd_bloc.dart';
 import 'package:delete_mee/blocCubit/cubit/creator_cubit.dart';
 import 'package:delete_mee/firstListRepository.dart';
-import 'package:delete_mee/model/FirstListModel.dart';
+import 'package:delete_mee/model/first_list_mode.dart';
 import 'package:flutter/material.dart';
-import 'dart:convert';
 import 'package:uuid/uuid.dart';
-import 'dart:io';
 import 'package:lottie/lottie.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FirstPage extends StatefulWidget {
-  FirstPage({Key? key}) : super(key: key);
-  int lol = -1;
+  const FirstPage({Key? key}) : super(key: key);
   @override
   State<FirstPage> createState() => _FirstPageState();
 }
 
 class _FirstPageState extends State<FirstPage> {
   MockFirstListRepository fakeFirebase = MockFirstListRepository();
-  //List<FirstListModel> firstList = [];
+  int lol = 0;
   var uuid = const Uuid();
 
   @override
@@ -55,16 +51,12 @@ class _FirstPageState extends State<FirstPage> {
                     final index = newIndex > oldIndex ? newIndex - 1 : newIndex;
                     final oneElement =
                         fakeFirebase.firstList.removeAt(oldIndex);
-                    fakeFirebase.firstList.insert(index, await oneElement);
+                    fakeFirebase.firstList.insert(index, oneElement);
                     setState(() {});
                   },
                   itemCount: state.firstList!.length,
                   itemBuilder: (context, index) {
-                    if (state.firstList![index] != null) {
-                      return buildPlate(state.firstList!, index);
-                    } else {
-                      return const Text("I frick up badly! :c");
-                    }
+                    return buildPlate(state.firstList!, index);
                   },
                 );
               } else {
@@ -137,18 +129,16 @@ class _FirstPageState extends State<FirstPage> {
 
   void remove(int index) {
     var e = fakeFirebase.firstList[index];
-    if (e != null) {
-      setState(() {
-        fakeFirebase.deleteElement(e.id);
-      });
-    }
+    setState(() {
+      fakeFirebase.deleteElement(e.id);
+    });
   }
 
   void _addWidget(CreatorCubit creatorCubit) {
     setState(() {});
     var vId = uuid.v1();
-    widget.lol++;
-    final item = FirstListModel(text: widget.lol.toString(), id: vId);
+    final item = FirstListModel(text: lol.toString(), id: vId);
+    lol++;
     creatorCubit.getList(item);
   }
 }

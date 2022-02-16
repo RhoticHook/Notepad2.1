@@ -1,5 +1,3 @@
-import 'package:flutter/cupertino.dart';
-
 class FirstListModel {
   String text;
   String id;
