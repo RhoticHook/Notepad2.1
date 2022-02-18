@@ -1,10 +1,8 @@
 import 'package:delete_mee/blocCubit/cubit/creator_cubit.dart';
-import 'package:delete_mee/screens/firstPage.dart';
+import 'package:delete_mee/screens/first_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'bloc/list_xd_bloc.dart';
-import 'firstListRepository.dart';
+import 'first_list_repository.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,13 +16,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  late FirstListRepository repo;
-  @override
-  void initState() {
-    repo = MockFirstListRepository();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -32,10 +23,9 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      //home: FirstPage(),
       home: BlocProvider(
         create: (context) => CreatorCubit(MockFirstListRepository()),
-        child: FirstPage(),
+        child: const FirstPage(),
       ),
     );
   }

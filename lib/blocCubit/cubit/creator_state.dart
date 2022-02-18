@@ -25,10 +25,11 @@ class CreatorError extends CreatorState {
   const CreatorError(this.message);
 
   @override
-  bool operator ==(Object o) {
-    if (identical(this, o)) return true;
+  //first i had 'o' but i need to change it to 'other' why?
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
 
-    return o is CreatorError && o.message == message;
+    return other is CreatorError && other.message == message;
   }
 
   @override

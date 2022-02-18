@@ -1,26 +1,21 @@
-//https://pastebin.com/3rYKTRVH
-import 'package:delete_mee/bloc/list_xd_bloc.dart';
 import 'package:delete_mee/blocCubit/cubit/creator_cubit.dart';
-import 'package:delete_mee/firstListRepository.dart';
-import 'package:delete_mee/model/FirstListModel.dart';
+import 'package:delete_mee/first_list_repository.dart';
+import 'package:delete_mee/model/first_list_model.dart';
 import 'package:flutter/material.dart';
-import 'dart:convert';
 import 'package:uuid/uuid.dart';
-import 'dart:io';
 import 'package:lottie/lottie.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FirstPage extends StatefulWidget {
-  FirstPage({Key? key}) : super(key: key);
-  int lol = -1;
+  const FirstPage({Key? key}) : super(key: key);
   @override
   State<FirstPage> createState() => _FirstPageState();
 }
 
 class _FirstPageState extends State<FirstPage> {
   MockFirstListRepository fakeFirebase = MockFirstListRepository();
-  //List<FirstListModel> firstList = [];
+  int iterableNameForWidgets = 0;
   var uuid = const Uuid();
 
   @override
@@ -46,29 +41,26 @@ class _FirstPageState extends State<FirstPage> {
           },
           builder: (context, state) {
             if (state is CreatorInitial) {
-              return emptyCase();
+              return _emptyCase();
             } else if (state is CreatorLoaded) {
-              fakeFirebase.firstList = state.firstList!;
+              fakeFirebase.firstList = state
+                  .firstList!; //this is veary bad, it should be only one list from fake repository!!!
               if (state.firstList?.isNotEmpty == true) {
                 return ReorderableListView.builder(
                   onReorder: (oldIndex, newIndex) async {
                     final index = newIndex > oldIndex ? newIndex - 1 : newIndex;
                     final oneElement =
                         fakeFirebase.firstList.removeAt(oldIndex);
-                    fakeFirebase.firstList.insert(index, await oneElement);
+                    fakeFirebase.firstList.insert(index, oneElement);
                     setState(() {});
                   },
                   itemCount: state.firstList!.length,
                   itemBuilder: (context, index) {
-                    if (state.firstList![index] != null) {
-                      return buildPlate(state.firstList!, index);
-                    } else {
-                      return const Text("I frick up badly! :c");
-                    }
+                    return _buildPlate(state.firstList!, index);
                   },
                 );
               } else {
-                return emptyCase();
+                return _emptyCase();
               }
             } else {
               return const CircularProgressIndicator(
@@ -81,11 +73,11 @@ class _FirstPageState extends State<FirstPage> {
     );
   }
 
-  Widget emptyCase() {
+  Widget _emptyCase() {
     return Center(child: Lottie.asset('assets/lottie/emptyApp.json'));
   }
 
-  ListTile buildPlate(List<FirstListModel> snapshot, int index) {
+  ListTile _buildPlate(List<FirstListModel> snapshot, int index) {
     return ListTile(
       key: ValueKey(snapshot[index].id),
       title: Text(snapshot[index].text),
@@ -94,7 +86,7 @@ class _FirstPageState extends State<FirstPage> {
         children: [
           IconButton(
             onPressed: () {
-              remove(index);
+              _remove(index);
             },
             icon: const Icon(
               Icons.delete,
@@ -102,7 +94,7 @@ class _FirstPageState extends State<FirstPage> {
             ),
           ),
           IconButton(
-            onPressed: () => edit(snapshot[index].id),
+            onPressed: () => _edit(snapshot[index].id),
             icon: const Icon(
               Icons.edit,
               color: Colors.black,
@@ -113,7 +105,7 @@ class _FirstPageState extends State<FirstPage> {
     );
   }
 
-  void edit(String id) => showDialog(
+  void _edit(String id) => showDialog(
         context: context,
         builder: (context) {
           return FutureBuilder(
@@ -135,20 +127,19 @@ class _FirstPageState extends State<FirstPage> {
         },
       );
 
-  void remove(int index) {
+  void _remove(int index) {
     var e = fakeFirebase.firstList[index];
-    if (e != null) {
-      setState(() {
-        fakeFirebase.deleteElement(e.id);
-      });
-    }
+    setState(() {
+      fakeFirebase.deleteElement(e.id);
+    });
   }
 
   void _addWidget(CreatorCubit creatorCubit) {
     setState(() {});
     var vId = uuid.v1();
-    widget.lol++;
-    final item = FirstListModel(text: widget.lol.toString(), id: vId);
+    final item =
+        FirstListModel(text: iterableNameForWidgets.toString(), id: vId);
+    iterableNameForWidgets++;
     creatorCubit.getList(item);
   }
 }
