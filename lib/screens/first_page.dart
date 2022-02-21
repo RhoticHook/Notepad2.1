@@ -1,4 +1,5 @@
-import 'package:delete_mee/bloc_cubit/cubit/creator_cubit.dart';
+import 'package:delete_mee/bloc_cubit/bloc/creator_bloc.dart';
+//import 'package:delete_mee/bloc_cubit/cubit/creator_cubit.dart';
 import 'package:delete_mee/first_list_repository.dart';
 import 'package:delete_mee/model/first_list_model.dart';
 import 'package:flutter/material.dart';
@@ -23,15 +24,15 @@ class _FirstPageState extends State<FirstPage> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          final creatorCubit = context.read<CreatorCubit>();
-          _addWidget(creatorCubit);
+          final creatorBloc = context.read<CreatorBloc>();
+          _addWidget(creatorBloc);
         },
       ),
       appBar: AppBar(
         title: const Text("Notepad M"),
       ),
       body: Center(
-        child: BlocConsumer<CreatorCubit, CreatorState>(
+        child: BlocConsumer<CreatorBloc, CreatorState>(
           listener: (context, state) {
             if (state is CreatorError) {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -134,12 +135,12 @@ class _FirstPageState extends State<FirstPage> {
     });
   }
 
-  void _addWidget(CreatorCubit creatorCubit) {
+  void _addWidget(CreatorBloc creatorBloc) {
     setState(() {});
     var vId = uuid.v1();
-    final item =
+    final oneElement =
         FirstListModel(text: iterableNameForWidgets.toString(), id: vId);
     iterableNameForWidgets++;
-    creatorCubit.getList(item);
+    creatorBloc.add(GetList(oneElement));
   }
 }
