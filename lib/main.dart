@@ -1,7 +1,7 @@
-import 'package:delete_mee/blocCubit/cubit/creator_cubit.dart';
 import 'package:delete_mee/screens/first_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'bloc_cubit/bloc/creator_bloc.dart';
 import 'first_list_repository.dart';
 
 void main() {
@@ -24,7 +24,7 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
       ),
       home: BlocProvider(
-        create: (context) => CreatorCubit(MockFirstListRepository()),
+        create: (context) => CreatorBloc(MockFirstListRepository()),
         child: const FirstPage(),
       ),
     );

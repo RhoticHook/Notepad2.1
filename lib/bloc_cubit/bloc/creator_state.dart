@@ -1,4 +1,4 @@
-part of 'creator_cubit.dart';
+part of 'creator_bloc.dart';
 
 @immutable
 abstract class CreatorState {
