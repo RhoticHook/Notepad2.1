@@ -1,4 +1,3 @@
-import 'package:delete_mee/bloc_cubit/cubit/creator_cubit.dart';
 import 'package:delete_mee/screens/first_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

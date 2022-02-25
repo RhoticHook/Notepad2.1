@@ -10,7 +10,6 @@ part 'creator_state.dart';
 class CreatorBloc extends Bloc<CreatorEvent, CreatorState> {
   final FirstListRepository _fakeRepository;
 
-  //CreatorBloc(this._fakeRepository) : super(const CreatorInitial());
   CreatorBloc(this._fakeRepository) : super(const CreatorInitial()) {
     on<GetList>((event, emit) async {
       try {
@@ -23,20 +22,4 @@ class CreatorBloc extends Bloc<CreatorEvent, CreatorState> {
       }
     });
   }
-
-  // @override
-  // Stream<CreatorState> mapEventToState(
-  //   CreatorEvent event,
-  // ) async* {
-  //   if (event is GetList) {
-  //     try {
-  //       yield const CreatorLoading();
-  //       await _fakeRepository.addElement(event.oneElement);
-  //       var list = await _fakeRepository.getList();
-  //       yield CreatorLoaded(list);
-  //     } on Exception catch (_) {
-  //       yield const CreatorError("error 404!, page not found");
-  //     }
-  //   }
-  // }
 }
